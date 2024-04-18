@@ -1,199 +1,55 @@
-import 'package:flutter/material.dart';
+import 'package:easyecommerce/model_veiw/home_veiw_model.dart';
 
-class HomePage extends StatefulWidget {
+import 'package:easyecommerce/widgets/custom_text.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  // List of image file paths
-  final List<String> pics = <String>[
-    'lib/assets/images/a.png',
-    'lib/assets/images/k.png',
-    'lib/assets/images/s.png',
-    'lib/assets/images/t.png',
+  final List<Map<String, String>> items = [
+    {'image': 'lib/assets/images/tv.jpg', 'name': 'TV'},
+    {'image': 'lib/assets/images/mobile.png', 'name': 'Mobile'},
+    {'image': 'lib/assets/images/labtops.jpeg', 'name': 'Laptop'},
+    {'image': 'lib/assets/images/headphone.webp', 'name': 'Headphone'},
+    {'image': 'lib/assets/images/smartphone.webp', 'name': 'Smartphone'},
   ];
 
-  final List<String> names = <String>[
-    'Cup Cake',
-    'Donuts',
-    'Bread',
-    'Cookies',
-  ];
-  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: _bottomNavItems,
-        currentIndex: _currentIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: Color(0xFF714423),
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-      ),
-      appBar: buildAppBar(),
+      bottomNavigationBar: bottomNavigationBar(),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: Container(
+          padding: const EdgeInsets.only(top: 100, right: 20, left: 20),
           child: Column(
             children: [
+              _searchTextFormField(),
+              const SizedBox(height: 30),
+              CustomText(text: "Categories"),
+              const SizedBox(height: 10),
+              listveiwCategoris(),
+              const SizedBox(
+                height: 25,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Categories',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  CustomText(
+                    text: 'Best Selling',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
-                  TextButton(
-                    child: const Text(
-                      'See All',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF714423),
-                      ),
-                    ),
-                    onPressed: () {},
-                  ),
+                  CustomText(
+                    text: 'See All',
+                    fontSize: 18,
+                  )
                 ],
-              ),
-              // Container for the list view
-              Container(
-                height: 100,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                ),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: pics.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 90,
-                            height: 80,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFBEED7),
-                                borderRadius: BorderRadius.circular(50)),
-                            child: Image.asset(pics[index]),
-                          ),
-                          Text(
-                            names[index],
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
               ),
               const SizedBox(
-                height: 15,
+                height: 30,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Special Offers',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextButton(
-                    child: const Text(
-                      'See All',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF714423),
-                      ),
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-//spicla offeres
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xFFFBEED7)),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.all(30),
-                            width: 140,
-                            height: 30,
-                            color: Colors.white,
-                            child: const Text(
-                              'Limited Time!',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                          const Text(
-                            'Get Special Offer',
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          ),
-                          const Row(
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            textBaseline: TextBaseline.alphabetic,
-                            children: [
-                              Text(
-                                'Up to',
-                                style: TextStyle(
-                                  fontSize: 30,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 4.0),
-                                child: Text(
-                                  '40',
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            margin: const EdgeInsets.all(30),
-                            decoration: const BoxDecoration(
-                                color: Colors.brown,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50))),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                'Shop Now',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      Image.asset(
-                        'lib/assets/images/h.png',
-                        scale: 1.3,
-                      ),
-                    ],
-                  )),
+              listveiwproducts(),
             ],
           ),
         ),
@@ -201,139 +57,154 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  AppBar buildAppBar() {
-    return AppBar(
-      toolbarHeight: 150,
-      backgroundColor: const Color(0xFF714423),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Location row: icon and text
-          const Row(
+  Container listveiwCategoris() {
+    return Container(
+      height: 100,
+      child: ListView.builder(
+        itemCount: items.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.location_on,
-                color: Colors.white,
-                size: 30,
-              ),
-              SizedBox(width: 8),
-              Text(
-                'Cairo',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+              Container(
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(color: Colors.grey.shade300),
                 ),
+                height: 70,
+                width: 70,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(item['image']!),
+                ),
+              ),
+              const SizedBox(height: 5),
+              CustomText(
+                text: item['name']!,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
             ],
-          ),
-          // Search bar
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Row(
-                children: [
-                  // Search icon
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.search, color: Colors.black),
-                  ),
-                  // Search input
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search...',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+          );
+        },
       ),
-      actions: [
-        Column(
-          children: [
-            Row(
+    );
+  }
+
+  Container listveiwproducts() {
+    return Container(
+      height: 350,
+      child: ListView.builder(
+        itemCount: items.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          return Container(
+            width: MediaQuery.of(context).size.width * .4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Icons on the right side of the AppBar
-                buildIconButton(
-                  Icons.shopping_cart,
-                  padding: const EdgeInsets.all(5.0),
+                Container(
+                  height: 320,
+                  margin: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade300),
+                  ),
+                  width: MediaQuery.of(context).size.width * .4,
+                  child: Column(children: [
+                    Image.asset(
+                      'lib/assets/images/watch1.jpg',
+                      fit: BoxFit.fill,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    CustomText(
+                      text: 'Beoplay Speaker',
+                      alignment: Alignment.bottomLeft,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    CustomText(
+                      text: item['name']!,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    CustomText(
+                      text: '\$750',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.green,
+                    ),
+                  ]),
                 ),
-                buildIconButton(
-                  Icons.notification_important_rounded,
-                  padding: const EdgeInsets.all(5.0),
-                ),
+                const SizedBox(height: 5),
               ],
             ),
-            const SizedBox(height: 15),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Icon(
-                Icons.settings,
-                size: 50,
-              ),
-            ),
-          ],
-        ),
-      ],
+          );
+        },
+      ),
     );
   }
 
-  Widget buildIconButton(IconData iconData, {EdgeInsets? padding}) {
-    return Padding(
-      padding: padding ?? EdgeInsets.zero,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(217, 217, 217, 0.5),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Icon(
-          iconData,
-          color: Colors.white,
+  Widget _searchTextFormField() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.grey.shade200,
+      ),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.black,
+          ),
+          hintText: 'Search...',
+          contentPadding: EdgeInsets.symmetric(vertical: 15),
         ),
       ),
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-    // Perform other actions based on the selected item
+  Widget bottomNavigationBar() {
+    return GetBuilder(
+      init: Homeviewmodel(),
+      builder: (controller) => BottomNavigationBar(
+        showUnselectedLabels: false,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.ads_click),
+            label: 'Explore...',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.shopping_cart_checkout,
+            ),
+            label: 'Cart',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Account',
+          ),
+        ],
+        currentIndex: controller.navigatorvalue,
+        onTap: (value) {
+          controller.selectedvalue(value);
+        },
+      ),
+    );
   }
 }
-
-final List<BottomNavigationBarItem> _bottomNavItems = [
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.home),
-    label: 'Home',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.location_on),
-    label: 'location',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.favorite),
-    label: 'Wishlist',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.chat),
-    label: 'Chat',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.person),
-    label: 'profile',
-  ),
-];
